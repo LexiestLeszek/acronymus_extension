@@ -3,8 +3,8 @@
     "name": "Acronymus",
     "version": "1.0.0",
     "description": "Replaces abbreviations and acronyms to their full meaning",
-    "icons": {"96": "brain64.png"},
-    "action": {"default_icon": "brain64.png"},
+    "icons": {"96": "brain96.png"},
+    "action": {"default_icon": "brain96.png"},
     "content_scripts": [
         {
             "matches": [
