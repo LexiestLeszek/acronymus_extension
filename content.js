@@ -429,26 +429,3 @@ for (let i = 0; i < pageText.length; i++) {
     }
   }
 }
-
-
-
-
-
-/*
-for (let i = 0; i < pageText.length; i++) {
-  for (const key of Object.keys(dictionary)) { 
-    if (text[i].innerHTML.includes("DCF") {
-      text[i].innerHTML = text[i].innerHTML.replace(`${key}`,`${dictionary[key]}`)
-    }
-  }
-}
-*/
-
-/* THIS IS WORKING
-for (let i = 0; i < pageText.length; i++) {
-  if (pageText[i].innerHTML.includes("DCF")) {
-    pageText[i].innerHTML = pageText[i].innerHTML.replace("DCF","MEOW!!!!")
-  }
-}
-*/
-
