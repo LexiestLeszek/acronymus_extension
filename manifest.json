@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    "name": "Acronymus",
+    "version": "1.0.0",
+    "description": "Replaces acronyms to their full meaning",
+    "icons": {"96": "brain96.png"},
+    "browser_action": {"default_icon": "brain96.png"},
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ],
+            "exclude_matches": [
+                "https://www.google.com/*",
+                "https://www.yahoo.com/*",
+                "https://www.bing.com/*",
+                "https://www.google.com/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "run_at": "document_end",
+            "all_frames": true
+        }
+    ]
+}
