@@ -11,12 +11,6 @@
                 "http://*/*",
                 "https://*/*"
             ],
-            "exclude_matches": [
-                "https://www.google.com/*",
-                "https://www.yahoo.com/*",
-                "https://www.bing.com/*",
-                "https://www.google.com/*"
-            ],
             "js": [
                 "content.js"
             ],

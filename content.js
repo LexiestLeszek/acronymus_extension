@@ -420,12 +420,35 @@ var dictionary = {
   "ZCYC": "Zero Coupon Yield Curve ",
   "ZOPA": "Zone of Possible Agreement "}
 
-const pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,caption,span,td,li,a,p')
+const pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,caption,span,a')
 
 for (let i = 0; i < pageText.length; i++) {
+  for (const key of Object.keys(dictionary)) {
+    if (pageText[i].innerHTML.includes(`${key}`)) {
+      pageText[i].innerHTML = pageText[i].innerHTML.replace(`${key}`,`${dictionary[key]}`)
+    }
+  }
+}
+
+
+
+
+
+/*
+for (let i = 0; i < pageText.length; i++) {
   for (const key of Object.keys(dictionary)) { 
-    if (text[i].innerHTML.includes(`${key}`)) {
+    if (text[i].innerHTML.includes("DCF") {
       text[i].innerHTML = text[i].innerHTML.replace(`${key}`,`${dictionary[key]}`)
     }
   }
 }
+*/
+
+/* THIS IS WORKING
+for (let i = 0; i < pageText.length; i++) {
+  if (pageText[i].innerHTML.includes("DCF")) {
+    pageText[i].innerHTML = pageText[i].innerHTML.replace("DCF","MEOW!!!!")
+  }
+}
+*/
+
