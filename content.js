@@ -420,7 +420,7 @@ var dictionary = {
   "ZCYC": "Zero Coupon Yield Curve ",
   "ZOPA": "Zone of Possible Agreement "}
 
-const pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,caption,span')
+const pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,caption,span,a')
 
 for (let i = 0; i < pageText.length; i++) {
   for (const key of Object.keys(dictionary)) {
