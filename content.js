@@ -422,6 +422,17 @@ var dictionary = {
 
 const pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,caption,span,a')
 
+
+/
+for (let i = 0; i < pageText.length; i++) {
+  for (const key of Object.keys(dictionary)) {
+    if (pageText[i].innerText.includes(`${key}`)) {
+      pageText[i].innerText = pageText[i].innerText.replace(`${key}`,`${dictionary[key]}`)
+    }
+  }
+}
+
+/* innerHTML = bad :(
 for (let i = 0; i < pageText.length; i++) {
   for (const key of Object.keys(dictionary)) {
     if (pageText[i].innerHTML.includes(`${key}`)) {
@@ -429,3 +440,4 @@ for (let i = 0; i < pageText.length; i++) {
     }
   }
 }
+*/
