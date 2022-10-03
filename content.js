@@ -429,13 +429,3 @@ for (let i = 0; i < pageText.length; i++) {
     }
   }
 }
-
-/* innerHTML = bad :(
-for (let i = 0; i < pageText.length; i++) {
-  for (const key of Object.keys(dictionary)) {
-    if (pageText[i].innerHTML.includes(`${key}`)) {
-      pageText[i].innerHTML = pageText[i].innerHTML.replace(`${key}`,`${dictionary[key]}`)
-    }
-  }
-}
-*/
