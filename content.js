@@ -426,12 +426,10 @@ for (let i = 0; i < pageText.length; i++) {
 
   for (const key of Object.keys(dictionary)) {                    
                                                                    
-    if (pageText[i].innerHTML.includes(`${key}`)                      
-      && !pageText[i].innerHTML.includes(`${dictionary[key]}`)) {    
+    if (pageText[i].innerHTML.includes(`${key}`) && !pageText[i].innerHTML.includes(`${dictionary[key]}`)) {    
                                                                        
         var pattern = new RegExp('\\b(' + key + ')\\b', 'i'); 
-        pageText[i].innerHTML = pageText[i].innerHTML
-        .replace(pattern,`${dictionary[key]}`)     
+        pageText[i].innerHTML = pageText[i].innerHTML.replace(pattern,`${dictionary[key]}`)     
     }
   }
 }
