@@ -425,8 +425,7 @@ const pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,caption,sp
 for (let i = 0; i < pageText.length; i++) {                       
 
   for (const key of Object.keys(dictionary)) {                    
-                                                                
-                
+                                                                   
     if (pageText[i].innerHTML.includes(`${key}`)                      
       && !pageText[i].innerHTML.includes(`${dictionary[key]}`)) {    
                                                                        
@@ -437,6 +436,3 @@ for (let i = 0; i < pageText.length; i++) {
   }
 }
 
-// innerHTML works but sometimes changes "business" => "business iness"
-// innerText works, but affects hyperlinks with key words
-// textContent works, but affects some words "corporate" => "corporate orate" and deletes hyperlinks
