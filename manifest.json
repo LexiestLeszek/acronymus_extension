@@ -1,10 +1,10 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Acronymus",
     "version": "1.0.0",
     "description": "Replaces abbreviations and acronyms to their full meaning",
     "icons": {"96": "brain96.png"},
-    "browser_action": {"default_icon": "brain96.png"},
+    "action": {"default_icon": "brain96.png"},
     "content_scripts": [
         {
             "matches": [

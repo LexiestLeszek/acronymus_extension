@@ -420,12 +420,17 @@ var dictionary = {
   "ZCYC": "Zero Coupon Yield Curve ",
   "ZOPA": "Zone of Possible Agreement "}
 
-const pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,caption,span,a')
+const pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,caption,span')
 
 for (let i = 0; i < pageText.length; i++) {
   for (const key of Object.keys(dictionary)) {
-    if (pageText[i].innerText.includes(`${key}`)) {
-      pageText[i].innerText = pageText[i].innerText.replace(`${key}`,`${dictionary[key]}`)
+    if (pageText[i].innerHTML.includes(`${key}`)) { 
+      var pattern = new RegExp('\\b(' + key + ')\\b', 'i');  
+      pageText[i].innerHTML = pageText[i].innerHTML.replace(pattern,`${dictionary[key]}`)
     }
   }
 }
+
+// innerHTML works but sometimes changes "business" => "business iness"
+// innerText works, but affects hyperlinks with key words
+// textContent works, but affects some words "corporate" => "corporate orate" and deletes hyperlinks
