@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Acronymus",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Replace financial abbreviations and acronyms with their expanded form",
     "icons": {"96": "brain96.png"},
     "action": {"default_icon": "brain96.png"},
