@@ -420,27 +420,20 @@ var dictionary = {
   "ZOPA": "Zone of Possible Agreement"
 }
 
-//  fetch("dataFinance.json")
-//    .then(response => response.json())
-//    .then(json => {
-//      dictionary = json;
-//    });
-
 const pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,caption,span');
 
 for (let i = 0; i < pageText.length; i++) {                       
 
   for (const key of Object.keys(dictionary)) {                    
-                                                                   
+                                                                    
     if (pageText[i].innerHTML.includes(`${key}`) && !pageText[i].innerHTML.includes(`(${key})`)) {    
-                                                                       
+                                                                        
       var pattern = new RegExp('\\b(' + key + ')\\b', 'i')
-      var replacement = `${dictionary[key]}`
+      var replacement = `<b>${dictionary[key]}</b>`
       pageText[i].innerHTML = pageText[i].innerHTML.replace(pattern, replacement);
     }
   }
 }
-
 
 
 

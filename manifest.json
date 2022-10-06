@@ -2,20 +2,14 @@
     "manifest_version": 3,
     "name": "Acronymus",
     "version": "1.0.0",
-    "description": "Replaces abbreviations and acronyms to their full meaning",
+    "description": "Replace financial abbreviations and acronyms with their expanded form",
     "icons": {"96": "brain96.png"},
     "action": {"default_icon": "brain96.png"},
-    "content_scripts": [
-        {
-            "matches": [
-                "http://*/*",
-                "https://*/*"
-            ],
-            "js": [
-                "content.js"
-            ],
-            "run_at": "document_end",
-            "all_frames": true
-        }
+    "background": {
+        "service_worker": "background.js"},
+    "permissions":[
+        "storage",
+        "activeTab",
+        "scripting"
     ]
 }
