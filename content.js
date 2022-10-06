@@ -1,5 +1,4 @@
 
-
 var dictionary = {
   "1H": "First half of the year",
   "24/7": "24 hours a day ",
@@ -418,19 +417,30 @@ var dictionary = {
   "YTC": "Yet-To-Confirm ",
   "ZBB": "Zero Based Budgeting ",
   "ZCYC": "Zero Coupon Yield Curve ",
-  "ZOPA": "Zone of Possible Agreement "}
+  "ZOPA": "Zone of Possible Agreement"
+}
 
-const pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,caption,span')  
+//  fetch("dataFinance.json")
+//    .then(response => response.json())
+//    .then(json => {
+//      dictionary = json;
+//    });
+
+const pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,caption,span');
 
 for (let i = 0; i < pageText.length; i++) {                       
 
   for (const key of Object.keys(dictionary)) {                    
                                                                    
-    if (pageText[i].innerHTML.includes(`${key}`) && !pageText[i].innerHTML.includes(`${dictionary[key]}`)) {    
+    if (pageText[i].innerHTML.includes(`${key}`) && !pageText[i].innerHTML.includes(`(${key})`)) {    
                                                                        
-      var pattern = new RegExp('\\b(' + key + ')\\b', 'i'); 
-      pageText[i].innerHTML = pageText[i].innerHTML.replace(pattern,`${dictionary[key]}`)     
+      var pattern = new RegExp('\\b(' + key + ')\\b', 'i')
+      var replacement = `${dictionary[key]}`
+      pageText[i].innerHTML = pageText[i].innerHTML.replace(pattern, replacement);
     }
   }
 }
+
+
+
 
