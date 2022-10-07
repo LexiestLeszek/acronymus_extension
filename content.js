@@ -429,7 +429,7 @@ for (let i = 0; i < pageText.length; i++) {
     if (pageText[i].innerHTML.includes(`${key}`) && !pageText[i].innerHTML.includes(`(${key})`)) {    
                                                                         
       var pattern = new RegExp('\\b(' + key + ')\\b', 'i')
-      var replacement = `<b>${dictionary[key]}</b>`
+      var replacement = `<b>[${dictionary[key]}]</b>`
       pageText[i].innerHTML = pageText[i].innerHTML.replace(pattern, replacement);
     }
   }

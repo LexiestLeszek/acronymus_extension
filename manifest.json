@@ -2,9 +2,10 @@
     "manifest_version": 3,
     "name": "Acronymus",
     "version": "1.0.1",
-    "description": "Replace financial abbreviations and acronyms with their expanded form",
-    "icons": {"96": "brain96.png"},
-    "action": {"default_icon": "brain96.png"},
+    "author": "Leszek Mielnikow",
+    "description": "Replace financial abbreviations and acronyms with their expanded forms",
+    "icons": {"96": "logo96.png"},
+    "action": {"default_icon": "logo96.png"},
     "background": {
         "service_worker": "background.js"},
     "permissions":[
