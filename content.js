@@ -4,7 +4,6 @@ var dictionary = {
   "24/7": "24 hours a day ",
   "ADR": "Alternative dispute resolution ",
   "AI": "Artificial Intelligence ",
-  "AM": "Account manager ",
   "AOP": "Adjusted Operating Profit ",
   "AOP": "Annual Operating Plan ",
   "AP": "Accounts payable ",
@@ -422,13 +421,13 @@ var dictionary = {
 
 const pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,caption,span');
 
-for (let i = 0; i < pageText.length; i++) {                       
+for (let i = 0; i < pageText.length; i++) {
 
-  for (const key of Object.keys(dictionary)) {                    
-                                                                    
-    if (pageText[i].innerHTML.includes(`${key}`) && !pageText[i].innerHTML.includes(`(${key})`)) {    
-                                                                        
-      var pattern = new RegExp('\\b(' + key + ')\\b', 'i')
+  for (const key of Object.keys(dictionary)) {
+
+    if (pageText[i].innerHTML.toLowerCase().includes(`${key}`.toLowerCase())) {    
+
+      var pattern = new RegExp(`\\b${key}\\b`, 'i')
       var replacement = `<b>[${dictionary[key]}]</b>`
       pageText[i].innerHTML = pageText[i].innerHTML.replace(pattern, replacement);
     }
