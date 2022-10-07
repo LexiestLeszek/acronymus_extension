@@ -425,7 +425,8 @@ for (let i = 0; i < pageText.length; i++) {
 
   for (const key of Object.keys(dictionary)) {
 
-    if (pageText[i].innerHTML.toLowerCase().includes(`${key}`.toLowerCase())) {    
+    if ( pageText[i].innerHTML.toLowerCase().includes(`${key}`.toLowerCase()) && 
+      !pageText[i].innerHTML.toLowerCase().includes(`${dictionary[key]} (${key})`.toLowerCase()) ) {    
 
       var pattern = new RegExp(`\\b${key}\\b`, 'i')
       var replacement = `<b>[${dictionary[key]}]</b>`

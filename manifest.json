@@ -3,11 +3,15 @@
     "name": "Acronymus",
     "version": "1.0.1",
     "author": "Leszek Mielnikow",
-    "description": "Replace financial abbreviations and acronyms with their expanded forms",
+    "description": "When viewing financial or any business related web page, click the Acronymus icon to replace finance and business abbreviations with their expanded forms. ",
     "icons": {"96": "logo96.png"},
-    "action": {"default_icon": "logo96.png"},
+    "action": {
+        "default_icon": "logo96.png",
+        "default_title": "Replace financial abbreviations and acronyms with their expanded forms"
+    },
     "background": {
-        "service_worker": "background.js"},
+        "service_worker": "background.js"
+    },
     "permissions":[
         "storage",
         "activeTab",
