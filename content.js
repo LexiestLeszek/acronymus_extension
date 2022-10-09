@@ -419,7 +419,7 @@ var dictionary = {
   "ZOPA": "Zone of Possible Agreement"
 }
 
-const pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,caption,span');
+var pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,caption,span');
 
 for (let i = 0; i < pageText.length; i++) {
 
@@ -428,7 +428,7 @@ for (let i = 0; i < pageText.length; i++) {
     if ( pageText[i].innerHTML.toLowerCase().includes(`${key}`.toLowerCase()) && 
       !pageText[i].innerHTML.toLowerCase().includes(`${dictionary[key]} (${key})`.toLowerCase()) ) {    
 
-      var pattern = new RegExp(`\\b${key}\\b`, 'i')
+      var pattern = new RegExp(`\\b${key}\\b`, 'ig')
       var replacement = `<b>[${dictionary[key]}]</b>`
       pageText[i].innerHTML = pageText[i].innerHTML.replace(pattern, replacement);
     }
