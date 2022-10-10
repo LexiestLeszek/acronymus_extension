@@ -39,7 +39,7 @@ var dictionary = {
   "CAGR": "Compound annual growth rate ",
   "CAO": "Chief Accounting Officer",
   "CAPEX": "Capital Expenditure ",
-  "CAPM": "Capital asset pricing model[",
+  "CAPM": "Capital asset pricing model",
   "CBOE": "Chicago Board Options Exchange ",
   "CBOT": "Chicago Board of Trade ",
   "CDO": "Collateralized Debt Obligation ",
@@ -305,18 +305,18 @@ var dictionary = {
   "PTC": "Private Trust Company ",
   "PTD": "Project to Date ",
   "PLR": "Prime Lending Rate ",
-  "PWIN": "Percent win ",
-  "PWP": "Personal Wealth Portfolio ",
+  "PWIN": "Percent win",
+  "PWP": "Personal Wealth Portfolio",
   "QC": "Quality control or Quality costs",
-  "QoQ": "Quarter on quarter ",
-  "QPR": "Quarterly Performance Report ",
-  "QRP": "Qualified Retirement Plan ",
-  "q/q": "Quarter on quarter ",
-  "QTD": "Quarter-to-date ",
-  "RAQSCI": "Regulatory ",
-  "RBI": "Reserve Bank of India ",
-  "RBA": "Reserve Bank of Australia ",
-  "RE": "Retained Earnings ",
+  "QoQ": "Quarter on quarter",
+  "QPR": "Quarterly Performance Report",
+  "QRP": "Qualified Retirement Plan",
+  "q/q": "Quarter on quarter",
+  "QTD": "Quarter-to-date",
+  "RAQSCI": "Regulatory",
+  "RBI": "Reserve Bank of India",
+  "RBA": "Reserve Bank of Australia",
+  " RE": "Retained Earnings",
   "REIT": "Real Estate Investment Trust ",
   "RFI": "Request for information ",
   "RFP": "Request for Proposal ",
@@ -434,6 +434,5 @@ for (let i = 0; i < pageText.length; i++) {
     }
   }
 }
-
 
 
