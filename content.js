@@ -412,8 +412,220 @@ var dictionary = {
   "YTC": "Yet-To-Confirm ",
   "ZBB": "Zero Based Budgeting ",
   "ZCYC": "Zero Coupon Yield Curve ",
-  "ZOPA": "Zone of Possible Agreement"
+  "ZOPA": "Zone of Possible Agreement",
+  "AUD":"Australia Dollar",
+  "GBP":"Great Britain Pound",
+  "EUR":"Euro",
+  "JPY":"Japan Yen",
+  "CHF":"Switzerland Franc",
+  "USD":"USA Dollar",
+  "AFN":"Afghanistan Afghani",
+  "DZD":"Algeria Dinar",
+  "AOA":"Angola Kwanza",
+  "ARS":"Argentina Peso",
+  "AMD":"Armenia Dram",
+  "AWG":"Aruba Florin",
+  "AUD":"Australia Dollar",
+  "ATS (EURO)":"Austria Schilling",
+  "BEF (EURO)":"Belgium Franc",
+  "AZN":"Azerbaijan New Manat",
+  "BSD":"Bahamas Dollar",
+  "BHD":"Bahrain Dinar",
+  "BDT":"Bangladesh Taka",
+  "BBD":"Barbados Dollar",
+  "BYR":"Belarus Ruble",
+  "BZD":"Belize Dollar",
+  "BMD":"Bermuda Dollar",
+  "BTN":"Bhutan Ngultrum",
+  "BOB":"Bolivia Boliviano",
+  "BAM":"Bosnia Mark",
+  "BWP":"Botswana Pula",
+  "BRL":"Brazil Real",
+  "GBP":"Great Britain Pound",
+  "BND":"Brunei Dollar",
+  "BGN":"Bulgaria Lev",
+  "BIF":"Burundi Franc",
+  "XOF":"CFA Franc BCEAO",
+  "XAF":"CFA Franc BEAC",
+  "XPF":"CFP Franc",
+  "KHR":"Cambodia Riel",
+  "CAD":"Canada Dollar",
+  "CVE":"Cape Verde Escudo",
+  "KYD":"Cayman Islands Dollar",
+  "CLP":"Chili Peso",
+  "CNY":"China Yuan/Renminbi",
+  "COP":"Colombia Peso",
+  "KMF":"Comoros Franc",
+  "CDF":"Congo Franc",
+  "CRC":"Costa Rica Colon",
+  "HRK":"Croatia Kuna",
+  "CUC":"Cuba Convertible Peso",
+  "CUP":"Cuba Peso",
+  "CYP (EURO)":"Cyprus Pound",
+  "CZK":"Czech Koruna",
+  "DKK":"Denmark Krone",
+  "DJF":"Djibouti Franc",
+  "DOP":"Dominican Republich Peso",
+  "XCD":"East Caribbean Dollar",
+  "EGP":"Egypt Pound",
+  "SVC":"El Salvador Colon",
+  "EEK (EURO)":"Estonia Kroon",
+  "ETB":"Ethiopia Birr",
+  "EUR":"Euro",
+  "FKP":"Falkland Islands Pound",
+  "FIM (EURO)":"Finland Markka",
+  "FJD":"Fiji Dollar",
+  "GMD":"Gambia Dalasi",
+  "GEL":"Georgia Lari",
+  "DMK (EURO)":"Germany Mark",
+  "GHS":"Ghana New Cedi",
+  "GIP":"Gibraltar Pound",
+  "GRD (EURO)":"Greece Drachma",
+  "GTQ":"Guatemala Quetzal",
+  "GNF":"Guinea Franc",
+  "GYD":"Guyana Dollar",
+  "HTG":"Haiti Gourde",
+  "HNL":"Honduras Lempira",
+  "HKD":"Hong Kong Dollar",
+  "HUF":"Hungary Forint",
+  "ISK":"Iceland Krona",
+  "INR":"India Rupee",
+  "IDR":"Indonesia Rupiah",
+  "IRR":"Iran Rial",
+  "IQD":"Iraq Dinar",
+  "IED (EURO)":"Ireland Pound",
+  "ILS":"Israel New Shekel",
+  "ITL (EURO)":"Italy Lira",
+  "JMD":"Jamaica Dollar",
+  "JPY":"Japan Yen",
+  "JOD":"Jordan Dinar",
+  "KZT":"Kazakhstan Tenge",
+  "KES":"Kenya Shilling",
+  "KWD":"Kuwait Dinar",
+  "KGS":"Kyrgyzstan Som",
+  "LAK":"Laos Kip",
+  "LVL (EURO)":"Latvia Lats",
+  "LBP":"Lebanon Pound",
+  "LSL":"Lesotho Loti",
+  "LRD":"Liberia Dollar",
+  "LYD":"Libya Dinar",
+  "LTL (EURO)":"Lithuania Litas",
+  "LUF (EURO)":"Luxembourg Franc",
+  "MOP":"Macau Pataca",
+  "MKD":"Macedonia Denar",
+  "MGA":"Malagasy Ariary",
+  "MWK":"Malawi Kwacha",
+  "MYR":"Malaysia Ringgit",
+  "MVR":"Maldives Rufiyaa",
+  "MTL (EURO)":"Malta Lira",
+  "MRO":"Mauritania Ouguiya",
+  "MUR":"Mauritius Rupee",
+  "MXN":"Mexico Peso",
+  "MDL":"Moldova Leu",
+  "MNT":"Mongolia Tugrik",
+  "MAD":"Morocco Dirham",
+  "MZN":"Mozambique New Metical",
+  "MMK":"Myanmar Kyat",
+  "ANG":"NL Antilles Guilder",
+  "NAD":"Namibia Dollar",
+  "NPR":"Nepal Rupee",
+  "NLG (EURO)":"Netherlands Guilder",
+  "NZD":"New Zealand Dollar",
+  "NIO":"Nicaragua Cordoba Oro",
+  "NGN":"Nigeria Naira",
+  "KPW":"North Korea Won",
+  "NOK":"Norway Kroner",
+  "OMR":"Oman Rial",
+  "PKR":"Pakistan Rupee",
+  "PAB":"Panama Balboa",
+  "PGK":"Papua New Guinea Kina",
+  "PYG":"Paraguay Guarani",
+  "PEN":"Peru Nuevo Sol",
+  "PHP":"Philippines Peso",
+  "PLN":"Poland Zloty",
+  "PTE (EURO)":"Portugal Escudo",
+  "QAR":"Qatar Rial",
+  "RON":"Romania New Lei",
+  "RUB":"Russia Rouble",
+  "RWF":"Rwanda Franc",
+  "WST":"Samoa Tala",
+  "STD":"Sao Tome/Principe Dobra",
+  "SAR":"Saudi Arabia Riyal",
+  "RSD":"Serbia Dinar",
+  "SCR":"Seychelles Rupee",
+  "SLL":"Sierra Leone Leone",
+  "SGD":"Singapore Dollar",
+  "SKK (EURO)":"Slovakia Koruna",
+  "SIT (EURO)":"Slovenia Tolar",
+  "SBD":"Solomon Islands Dollar",
+  "SOS":"Somali Shilling",
+  "ZAR":"South Africa Rand",
+  "KRW":"South Korea Won",
+  "ESP (EURO)":"Spain Peseta",
+  "LKR":"Sri Lanka Rupee",
+  "SHP":"St Helena Pound",
+  "SDG":"Sudan Pound",
+  "SRD":"Suriname Dollar",
+  "SZL":"Swaziland Lilangeni",
+  "SEK":"Sweden Krona",
+  "CHF":"Switzerland Franc",
+  "SYP":"Syria Pound",
+  "TWD":"Taiwan Dollar",
+  "TZS":"Tanzania Shilling",
+  "THB":"Thailand Baht",
+  "TOP":"Tonga Pa'anga",
+  "TTD":"Trinidad/Tobago Dollar",
+  "TND":"Tunisia Dinar",
+  "TRY":"Turkish New Lira",
+  "TMM":"Turkmenistan Manat",
+  "USD":"USA Dollar",
+  "UGX":"Uganda Shilling",
+  "UAH":"Ukraine Hryvnia",
+  "UYU":"Uruguay Peso",
+  "AED":"United Arab Emirates Dirham",
+  "VUV":"Vanuatu Vatu",
+  "VEB":"Venezuela Bolivar",
+  "VND":"Vietnam Dong",
+  "YER":"Yemen Rial",
+  "ZMK":"Zambia Kwacha",
+  "ZWD":"Zimbabwe Dollar"
 }
+
+
+// getting all the text nodes under a particular node
+function textNodesUnder(el){
+  var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
+  while(n=walk.nextNode()) a.push(n);
+  return a;
+}
+
+// getting textnodes from the body of the document
+var pageText = textNodesUnder(document.body);
+
+// if one of the nodes matches dictionary key, then we change it for the dictionary value
+for (node of pageText) {
+    var origText = node.nodeValue;
+    var text = origText;
+    for (const key of Object.keys(dictionary)) {
+        var pattern = new RegExp(`\\b${key}\\b`, 'ig');
+        var replacement = `[${dictionary[key]}]`
+        var newText = text.replace(pattern, replacement);
+        if ((newText !== text) && 
+          (node.parentNode !== null) && 
+          !(origText.includes(`${dictionary[key]}`))) {
+            text = newText;
+        }
+    }
+    if ((text != origText) && (node.parentNode !== null)) {
+       var element = document.createElement("span");
+       element.innerHTML = text;
+       node.parentNode.replaceChild(element, node);
+    }
+}
+
+
+///// old script
+/*
 
 var pageText = document.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,td,caption,span');
 
@@ -431,4 +643,6 @@ for (let i = 0; i < pageText.length; i++) {
   }
 }
 
+*/
 
+//////// v1.3 IS BELOW
