@@ -2,7 +2,83 @@
 
 // grab all the text content from the page
 const contentTxt = document.body.textContent
-const num = 10;
+
+// find n of most frequent words (num defines the amount of most frequent)
+const findMostFreqWords = (contentTxt = '', num = 1) => {
+    
+    const stopWords = ["",'what', 'until', 'a', 
+     "haven't", 'will', 'wasn', 'hers', 'after', 
+     'myself', 'below', 'mustn', 'she', 'here', 
+     'if', 'these', 'only', 'above', "wouldn't", 
+     "mustn't", "it's", "mightn't", 'to', 'was', 
+     'in', "won't", 'itself', 'can', 'mightn', 
+     'ourselves', 'be', 'which', 'some', 'those', 
+     "should've", "you'd", 'again', 've', 'haven', 
+     'not', 'hadn', 'shouldn', 'my', 'has', 'are', 
+     'further', "she's", 'now', "wasn't", 'themselves', 
+     'its', "shan't", 'ain', 'an', "isn't", 'there', 
+     'your', 'doing', 'once', 'that', "you've", 'no', 
+     'were', 'just', 'them', 'her', 'between', 'been', 
+     'into', 'from', 'while', 'on', 'against', 'am', 
+     'out', 'should', 'this', 'then', 'as', 'm', 'being', 
+     'doesn', "hadn't", 'before', 'who', 'with', 'down', 
+     'nor', 'is', 'me', 'or', 'wouldn', 'own', "hasn't", 
+     'did', "weren't", 'his', 'hasn', 'isn', "aren't", 
+     'for', 'during', 'ours', 're', 'o', "needn't", 'up', 
+     'under', 'each', 'have', 'same', 'off', 'where', 'but', 
+     'ma', 'most', 'y', 'such', 'by', 'they', "doesn't", 'few', 
+     'him', "you're", 's', 'very', 'll', 'don', 'than', 
+     'when', 'd', 'through', 'having', 'it', 'weren', 'too', 
+     "didn't", 'their', 'you', 'and', 'himself', 'yours', 
+     'other', 'so', 'more', 't', 'all', 'herself', 'the', 
+     'theirs', 'aren', 'whom', 'about', 'won', 'yourselves', 
+     'our', "don't", 'over', 'shan', 'we', 'why', "shouldn't", 
+     'because', 'any', 'how', 'had', 'at', 'he', 'of', 'yourself',
+     'does', 'both', 'didn', "couldn't", "that'll", 'couldn', 
+     "you'll", 'i', 'needn', 'do', "randomly" , "apply", "add", "even", 
+     "therefore", "considering", "meaning", "ones", "better", "do",
+      "random", "arent", "subject", "whatever", "say", "youre", 
+      "rendering","opinion","identified","meaning","matters", "want",
+      "sitting","standing","walking","talking","crying","begging",
+      "january","february",	"march","april","may","june","july","august",
+      "september","october","november","december","jan","feb","mar","apr",
+      "may","jun","jul","aug","sep","oct","nov","dec","1st","2nd","3rd",
+      "4th","5th","6th","7th","8th","9th","10th","one","two","three","four",
+      "five","six","seven","eight","nine","ten","eleven","twelve","thirteen",
+      "twenty","21st","20th","century","dozen","hundred","thousand","million",
+      "billion","trillion","across","over","above","below","edition","set","every",
+    "any","more","less","yet","wants","wanted","many","much","little","small","help",
+    "thing","things","stuff","owned","basic","mutual"];
+      
+    var contentTxtArr = contentTxt.toLowerCase().replace(/[^\w\d\s]/gi, "").split(" ");
+    contentTxtArr = contentTxtArr.filter( ( el ) => !stopWords.includes( el ) );
+    num = 20
+    const map = {};
+    contentTxtArr.forEach(word => {
+       if(map.hasOwnProperty(word)) {
+          map[word]++;
+       }else {
+          map[word] = 1;
+       }
+    });
+    const freqArr = Object.keys(map).map(key => [key, map[key]]);
+    freqArr.sort((a, b) => b[1] - a[1]);
+    return freqArr.slice(0, num).map(el => el[0]);
+ };
+ console.log(findMostFreqWords(contentTxt));
+
+
+/// TO DO: compare most frequent words in text with the abbreviations where
+// each topic, such as Finance/Business; Medicine; Etc... has their own
+// list of abbreviations and their full forms,
+// so that comparison would return the topic of the text
+// IMPORTANT: Capture Amount of thematical wods ralative to the overall amount of words (Theme words / All words)
+// Certain persentage of thematical words in the body of text implies that text has particular topic (question iswhat persetnage?)
+
+
+// Finance topics: Economics, Finance and Accounting, Product management, 
+
+/*
 const stopWords = ['what', 'until', 'a', 
     "haven't", 'will', 'wasn', 'hers', 'after', 
     'myself', 'below', 'mustn', 'she', 'here', 
@@ -33,34 +109,11 @@ const stopWords = ['what', 'until', 'a',
     'because', 'any', 'how', 'had', 'at', 'he', 'of', 'yourself',
     'does', 'both', 'didn', "couldn't", "that'll", 'couldn', 
     "you'll", 'i', 'needn', 'do', ""];
+*/
 
-// find n of most frequent words (num defines the amount of most frequent)
-const findMostFreqWords = (contentTxt = '', num = 1) => {
-   var contentTxtArr = contentTxt.toLowerCase().replace(/[^\w\d\s]/gi, "").split(" ");
-   contentTxtArr = contentTxtArr.filter( ( el ) => !stopWords.includes( el ) );
-   const map = {};
-   contentTxtArr.forEach(word => {
-      if(map.hasOwnProperty(word)){
-         map[word]++;
-      }else{
-         map[word] = 1;
-      }
-   });
-   const freqArr = Object.keys(map).map(key => [key, map[key]]);
-   freqArr.sort((a, b) => b[1] - a[1]);
-   return freqArr.slice(0, num).map(el => el[0]);
-};
-console.log(findMostFreqWords(contentTxt, num));
+/////////////////////  MAIN script: replacing abbreviations  //////////////////////////////
 
-
-/// TO DO: compare most frequent words in text with thematical array where
-// each topic, such as Finance/Business; Medicine; Etc... will have their own
-// Thematical arrays associated with the topic, 
-// so that comparison would return the topic of the text
-
-
-
-// MAIN script: replacing abbreviations
+// object (dictionary) with abbreviation-value pairs
 var datka = {
     "Q1":"Quarter One",
     "Q2":"Quarter Two",
@@ -658,7 +711,7 @@ var datka = {
 }
 
 // func to get all the text nodes under a particular node
-function textNodesUnder(el){
+function textNodesUnder(el) {
   var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
   while(n=walk.nextNode()) a.push(n);
   return a;
