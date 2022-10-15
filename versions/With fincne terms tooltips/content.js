@@ -1,9 +1,8 @@
 
-
 /////////////////////  MAIN script: replacing abbreviations  //////////////////////////////
 
 // object (dictionary) with abbreviation-value pairs
-var datka = {
+var abbreviations = {
     "CCCN":"Customs Cooperation Council Nomenclature",
     "CPI":"Consumer price index",
     "EC":"European Communities",
@@ -14,6 +13,7 @@ var datka = {
     "FDI":"Foreign Direct Investment",
     "FIR":"Factor intensity reversal",
     "FTA":"Free trade area",
+    "RRR":"Required Rate of Return",
     "GATT":"General Agreement on Tariffs and Trade",
     "GDP":"Gross domestic product",
     "GMO":"Genetically modified organism",
@@ -527,7 +527,7 @@ var datka = {
     "ISK":"Iceland Krona",
     "INR":"India Rupee",
     "IDR":"Indonesia Rupiah",
-    "IR":"Iran Rial",
+    "IRR":"Iran Rial",
     "IQD":"Iraq Dinar",
     "IED (EURO)":"Ireland Pound",
     "ILS":"Israel New Shekel",
@@ -627,173 +627,6 @@ var datka = {
     "ZWD":"Zimbabwe Dollar"
 }
 
-// func to get all the text nodes under a particular node (will take all the nodes from html body)
-function textNodesUnder(el) {
-  var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
-  while(n=walk.nextNode()) a.push(n);
-  return a;
-}
-
-// getting textnodes from the body of the document
-var pageText = textNodesUnder(document.body);
-
-// IF one of the nodes matches dictionary key, THEN we change it for the dictionary value
-for (node of pageText) {
-    var origText = node.nodeValue;
-    var text = origText;
-    for (const key of Object.keys(datka)) {
-        var pattern = new RegExp(`\\b${key}\\b`, 'ig');
-        var replacement = `[${datka[key]}]`
-        var newText = text.replace(pattern, replacement);
-        if ((newText !== text) && 
-          (node.parentNode !== null) && 
-          !(origText.includes(`${datka[key]}`))) {
-            text = newText;
-        }
-    }
-    if ((text != origText) && (node.parentNode !== null)) {
-       var element = document.createElement("span");
-       element.innerHTML = text;
-       node.parentNode.replaceChild(element, node);
-    }
-}
-
-
-//////////////////////////////// find n most frequent words (n = num) /////////////////////////////////
-
-/*
-
-// grab all the text content from the html body
-const contentTxt = document.body.textContent
-
-// searching for most frequent words minus stopwords (words that we ignore)
-function findMostFreqWords(contentTxt = '') {
-
-    // stopwords - array of words that we will ignore when searching
-    const stopWords = ['what', 'until', 'a', 'b','c', 'o', 'f',
-        "haven't", 'will', 'wasn', 'hers', 'after','w','k',
-        'myself', 'below', 'mustn', 'she', 'here','g','d',
-        'if', 'these', 'only', 'above', "wouldn't",
-        "mustn't", "it's", "mightn't", 'to', 'was',
-        'in', "won't", 'itself', 'can', 'mightn',
-        'ourselves', 'be', 'which', 'some', 'those',
-        "should've", "you'd", 'again', 've', 'haven',
-        'not', 'hadn', 'shouldn', 'my', 'has', 'are',
-        'further', "she's", 'now', "wasn't", 'themselves',
-        'its', "shan't", 'ain', 'an', "isn't", 'there',
-        'your', 'doing', 'once', 'that', "you've", 'no',
-        'were', 'just', 'them', 'her', 'between', 'been',
-        'into', 'from', 'while', 'on', 'against', 'am',
-        'out', 'should', 'this', 'then', 'as', 'm', 'being',
-        'doesn', "hadn't", 'before', 'who', 'with', 'down',
-        'nor', 'is', 'me', 'or', 'wouldn', 'own', "hasn't",
-        'did', "weren't", 'his', 'hasn', 'isn', "aren't",
-        'for', 'during', 'ours', 're', 'o', "needn't", 'up',
-        'under', 'each', 'have', 'same', 'off', 'where', 'but',
-        'ma', 'most', 'y', 'such', 'by', 'they', "doesn't", 'few',
-        'him', "you're", 's', 'very', 'll', 'don', 'than',
-        'when', 'd', 'through', 'having', 'it', 'weren', 'too',
-        "didn't", 'their', 'you', 'and', 'himself', 'yours',
-        'other', 'so', 'more', 't', 'all', 'herself', 'the',
-        'theirs', 'aren', 'whom', 'about', 'won', 'yourselves',
-        'our', "don't", 'over', 'shan', 'we', 'why', "shouldn't",
-        'because', 'any', 'how', 'had', 'at', 'he', 'of', 'yourself',
-        'does', 'both', 'didn', "couldn't", "that'll", 'couldn',
-        "you'll", 'i', 'needn', 'do', "randomly", "apply", "add", "even",
-        "therefore", "considering", "meaning", "ones", "better", "do",
-        "random", "arent", "subject", "whatever", "say", "youre",
-        "rendering", "opinion", "identified", "meaning", "matters", "want",
-        "sitting", "standing", "walking", "talking", "crying", "begging",
-        "january", "february", "march", "april", "may", "june", "july", "august",
-        "september", "october", "november", "december", "jan", "feb", "mar", "apr",
-        "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "1st", "2nd", "3rd",
-        "4th", "5th", "6th", "7th", "8th", "9th", "10th", "one", "two", "three", "four",
-        "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen",
-        "twenty", "21st", "20th", "century", "dozen", "hundred", "thousand", "million",
-        "billion", "trillion", "across", "over", "above", "below", "edition", "set", "every",
-        "any", "more", "less", "yet", "wants", "wanted", "many", "much", "little", "small", "help",
-        "thing", "things", "stuff", "owned", "basic", "mutual", "someday", "timid", 
-        ,"explaining","extra","kitchen","bed",'came', 'easier','management','rest',
-        'certain','portion','future','function',"would","should","could","had",
-        "wouldnt","shouldnt","couldnt","wouldn't","shouldn't","couldn't",""];
-
-    var contentTxtArr = contentTxt.toLowerCase().replace(/[^\w\d\s]/gi, "").split(" ");
-    contentTxtArr = contentTxtArr.filter((el) => !stopWords.includes(el));
-    num = 10;
-    const map = {};
-    contentTxtArr.forEach(word => {
-        if (map.hasOwnProperty(word)) {
-            map[word]++;
-        } else {
-            map[word] = 1;
-        }
-    });
-    const freqArr = Object.keys(map).map(key => [key, map[key]]);
-    freqArr.sort((a, b) => b[1] - a[1]);
-    return freqArr.slice(0, num).map(el => el[0]);
-}
-
-console.log(findMostFreqWords(contentTxt));
-
-////////////////////////// Matches keywords to a product variable /////////////////////
-
-// exapmle:
-// const products = ['Tagful Tee', 'Rectangle Logo', 'Crewneck'];
-// const product = products.find(product => matchKeyword(product, '+Tagful, -Tagless'));
-
-// console.log(product); // => 'Tagful Tee'
-
-/*
-const matchKeyword = (productName, keywords) => {
-    const name = productName.toLowerCase().trim();
-    return (keywords.toLowerCase().split(",").map((keyword) => keyword.trim()).filter((word) =>
-            (word.includes("+") && !name.includes(word.substr(1))) ||
-            (word.includes("-") && name.includes(word.substr(1)))).length === 0);
-        };
-
-*/
-
-/// TO DO: compare most frequent words in text with the abbreviations where
-// each topic, such as Finance/Business; Medicine; Etc... has their own
-// list of abbreviations and their full forms,
-// so that comparison would return the topic of the text
-// IMPORTANT: Capture Amount of thematical wods ralative to the overall amount of words (Theme words / All words)
-// Certain persentage of thematical words in the body of text implies that text has particular topic (question iswhat persetnage?)
-
-
-// Finance topics: Economics, Finance and Accounting, Product management
-
-
-
-/*
-
-////////////////////////// get all key-value pairs from text file to dictionary ///////////////////////
-let finTerms = readTextFile("/termlist.txt"); 
-
-function readTextFile(fileName) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', chrome.runtime.getURL(fileName), true);
-  xhr.onreadystatechange = function() {
-    if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
-    {
-      const terms = xhr.responseText;
-      //... The content has been read in xhr.responseText
-      const termLines = terms.split('\n');
-
-      let dictionary = {};
-
-      for(let i = 0; i < termLines.length; ++i) {
-        const line = termLines[i];
-        const termParts = line.split('&$&');
-        dictionary[termParts[0].trim()] = termParts[1].trim();
-      }
-    } return dictionary
-  }
-} xhr.send()
-
-
-//////////////////// add tooltip with dictionary value to word that match dictionary key ///////////////////
-
 // func to get all the text nodes under a particular node
 function textNodesUnder(el) {
   var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
@@ -804,28 +637,26 @@ function textNodesUnder(el) {
 // getting textnodes from the body of the document
 var pageText = textNodesUnder(document.body);
 
-// main loop to add tooltip 
+// walking through each of the node in the page text
+// if word in the node (in the page text) matches dictionary key, 
+// then replace the word for dictionary value
 for (node of pageText) {
     var origText = node.nodeValue;
-    var term = origText;
-    for (const key of Object.keys(finTerms)) {
-        var pattern = new RegExp(`${key}`, 'ig');
-        var tooltip = "Definition: "
-        var chars = Math.max(tooltip.length, key.length + 10);
-        var replacement = '<span class="tooltip">' + key + 
-                              '<span class="tooltiptext" style="width:' + chars + 'ex;">' + 
-                              tooltip + '<br/>"' + finTerms[key] + '"</span></span>';
-        var replacedTerm = term.replace(pattern, replacement);
-  
-        if ((replacedTerm !== term) && (node.parentNode !== null)) {
-          term = replacedTerm;
+    var text = origText;
+    for (const key of Object.keys(abbreviations)) {
+        var pattern = new RegExp(`\\b${key}\\b`, 'ig');
+        var replacement = `[${abbreviations[key]}]`
+        var newText = text.replace(pattern, replacement);
+        if ((newText !== text) && 
+          (node.parentNode !== null) && 
+            !(origText.includes(`${abbreviations[key]}`))) {
+                text = newText;
         }
     }
-    if ((term != origText) && (node.parentNode !== null)) {
-       var elementTerm = document.createElement("span");
-       elementTerm.innerHTML = term;
-       node.parentNode.replaceChild(elementTerm, node);
+    if ((text != origText) && (node.parentNode !== null)) {
+       var elementText = document.createElement("span");
+       elementText.innerHTML = text;
+       node.parentNode.replaceChild(elementText, node);
     }
 }
 
-*/
