@@ -1,9 +1,8 @@
 
-
 /////////////////////  MAIN script: replacing abbreviations  //////////////////////////////
 
-// object (dictionary) with abbreviation-value pairs
-var datka = {
+// object (dictionary) with abbreviation-full form pairs
+var finAcronyms = {
     "CCCN":"Customs Cooperation Council Nomenclature",
     "CPI":"Consumer price index",
     "EC":"European Communities",
@@ -14,6 +13,7 @@ var datka = {
     "FDI":"Foreign Direct Investment",
     "FIR":"Factor intensity reversal",
     "FTA":"Free trade area",
+    "RRR":"Required Rate of Return",
     "GATT":"General Agreement on Tariffs and Trade",
     "GDP":"Gross domestic product",
     "GMO":"Genetically modified organism",
@@ -527,7 +527,7 @@ var datka = {
     "ISK":"Iceland Krona",
     "INR":"India Rupee",
     "IDR":"Indonesia Rupiah",
-    "IR":"Iran Rial",
+    "IRR":"Iran Rial",
     "IQD":"Iraq Dinar",
     "IED (EURO)":"Ireland Pound",
     "ILS":"Israel New Shekel",
@@ -627,172 +627,136 @@ var datka = {
     "ZWD":"Zimbabwe Dollar"
 }
 
-// func to get all the text nodes under a particular node (will take all the nodes from html body)
-function textNodesUnder(el) {
-  var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
-  while(n=walk.nextNode()) a.push(n);
-  return a;
+// object (dictionary) with term-definition pairs
+let finTerms = {
+  "Accounts payable":"a record of all unpaid short-term (less than 12 months) invoices, bills and other liabilities. Examples of accounts payable include invoices for goods or services, bills for utilities and tax payments due.",
+  "Accounts receivable":"a record of all short-term accounts (less than 12 months) from customers you sell to but are yet to pay. These customers are called debtors and are generally invoiced by a business.",
+  "Accrual accounting":"an accounting system that records transactions at the time they occur, whether the payment occurs now or in the future.",
+  "Amortisation":"the process of offsetting assets such as goodwill and intellectual property over a period of time. See also Depreciation.",
+  "Assets":"things you own. These can be cash or something you can convert into cash such as property, vehicles, equipment and inventory.",
+  "Audit":"a check by an auditor or tax official on your financial records to check that you account for everything correctly.",
+  "Bad debts":"money that is unlikely to be paid in the near future.",
+  "Balance sheet":"a snapshot of a business on a particular date. It lists all of your assets and liabilities and works out the net assets.",
+  "Balloon payment":"a final lump sum payment due on a loan agreement. Loans with a larger final 'balloon payment' have lower regular repayments over the term of the loan.",
+  "Bank reconciliation":"a cross-check that ensures the amounts in your cashbook match the relevant bank statements.",
+  "Bankruptcy":"a process where an individual is legally bankrupt and an appointed trustee manages their assets and financial affairs.",
+  "Benchmark":"a set of conditions against which you can measure a product or business.",
+  "Bill of sale":"a legal document for the purchase of property or other assets that details the purchase, where it took place, and for how much.",
+  "Bookkeeping":"the process of recording the financial transactions of a business.",
+  "Bootstrapping":"where a business funds its growth purely through personal finances and revenue from the business.",
+  "Bottom line":"see Net profit.",
+  "Break-even point":"the exact point when a business's income equals its expenses.",
+  "Capital cost":"a one-off substantial purchase of physical items such as plant, equipment, building or land.",
+  "Capital gain":"the amount gained when an asset sells above its original purchase price.",
+  "Capital growth":"an increase in the value of an asset.",
+  "Cash":"includes all money available on demand, including bank notes and coins, petty cash, certain cheques, and money in savings or debit accounts.",
+  "Cash accounting":"an accounting system that records transactions at the time you actually receive money payment.",
+  "Cash book":"a daily record of all cash, credit or cheque transactions received or paid out by a business.",
+  "Cash flow":"the measure of actual cash flowing in and out of a business.",
+  "Collateral":"see Security.",
+  "Commercial bill (also known as a bill of exchange)":"a form of commercial loan on an interest only basis, or interest reducing basis. Commercial bills typically require some sort of security and suit short-term funding needs such as inventory.",
+  "Contingent liability":"a liability where payment is made only if a particular event or circumstance occurs.",
+  "Cost of goods sold":"the total direct costs of producing a good or delivering a service.",
+  "Creditor":"a person or business that allows you to purchase a good or service with an agreement to pay at a later date. A creditor is also anyone who you owe money to, such as a lender or supplier.",
+  "Credit limit":"a dollar amount that you cannot exceed on a credit card or the maximum lending amount offered for a loan.",
+  "Credit rating":"a ranking applied to a person or business based on their credit history that represents their ability to repay a debt. Visit ASIC’s MoneySmart website to learn more about credit ratings- external site.",
+  "Credit history":"a report detailing an individual's or business's past credit arrangements. A lender may seek a credit history when assessing a loan application. Visit ASIC’s MoneySmart website to read more about credit reports- external site.",
+  "Crowdfunding":"is a way of financing your business idea through donations of money from the public. This usually occurs online, through a crowdfunding website.",
+  "Current asset":"an asset in cash or something you can convert into cash within 12 months.",
+  "Current liability":"a liability that is due for payment within 12 months.",
+  "Debit":"in double-entry bookkeeping, a debit is an entry made on the left-hand side of a journal or ledger representing an asset or expense.",
+  "Debt":"any amount that you owe including bills, loan repayments and income tax.",
+  "Debt consolidation":"the process of combining several loans or other debts into one for the purposes of obtaining a lower interest rate or reducing fees.",
+  "Debt finance":"money provided by an external lender, such as a bank or building society.",
+  "Debtor":"a person or business that owes you money.",
+  "Debtors finance":"See Factoring.",
+  "Default":"a failure to pay a loan or other debt obligation.",
+  "Depreciation":"the process of offsetting an asset over a period of time. You can depreciate an asset to spread the cost of the asset over its useful life.",
+  "Disbursements":"money that a business spends.",
+  "Double-entry bookkeeping":"is a bookkeeping method that records each transaction in 2 accounts, both as a debit and a credit.",
+  "Drawings":"personal expenses paid for from a business account.",
+  "Drip pricing- external site":"is when one price is presented at the beginning of an online shopping experience. Gradually, incremental fees and charges are added (or 'dripped') as you progress, for example, when buying a plane ticket. Drip pricing can result in the customer paying a higher price for a service or product than they first thought. However, you are required to show fees and charges at the beginning of an online shopping process and not gradually add them in.",
+  "Employee share schemes- external site":"where you give your employees the opportunity to buy shares in your company. Other terms include an 'employee share purchase plan' or an 'employee equity scheme'.",
+  "Encumbered":"an encumbered asset is one that is currently put forward as security or collateral for a loan.",
+  "Equity":"the value of ownership interest in the business, calculated by deducting liabilities from assets. See also Owner's equity.",
+  "Equity finance":"money provided to a business in exchange for part ownership of the business. This can be money invested by the business owners, friends, family, or investors like business angels and venture capitalists.",
+  "Excise duty":"an indirect tax levied on certain types of goods produced or manufactured in Australia including petrol, alcohol, tobacco and coal.",
+  "Facility":"an arrangement such as an account offered by a financial institution to a business (such as a bank account, a short-term loan or overdraft).",
+  "Factoring (also known as debtor’s finance and accounts receivable finance)":"when a factor company buys a business's outstanding invoices at a discount. The factor company then chases up the debtors. Factoring is a way to get quick access to cash, but can be quite expensive compared to traditional financing options.",
+  "Finance":"money used to fund a business or high value purchase.",
+  "Financial year":"a 12-month period typically from 1 July to 30 June.",
+  "Financial statement":"a summary of a business's financial position for a given period. Financial statements can include a profit and loss, balance sheet and cash flow statement.",
+  "Fixed asset":"a physical asset used in the running of a business.",
+  "Fixed cost":"a cost that is not part of producing a good or service.",
+  "Forecast":"a list of future financial transactions. Forecasts help to plan a more accurate budget.",
+  "Fringe benefits":"non-monetary benefits, such as company cars and mobile phones, included as part of a salary package.",
+  "Fully drawn advance":"is a long term loan with the option to fix the interest rate for a period. These loans are usually secured and can help fund a new business or equipment.",
+  "Goodwill":"an intangible asset that represents the value of a business's reputation.",
+  "Gross income":"the total money earned by a business before you deduct expenses.",
+  "Gross profit (also known as net sales)":"the difference between sales and the direct cost of making the sales.",
+  "Guarantor":"a person who promises to pay a loan in the event the borrower cannot meet the repayments. The guarantor is legally responsible for the debt.",
+  "Hire-purchase":"a type of contract where you purchase a good through an initial deposit. You then rent it and pay the balance off in instalments plus interest charges. When you make the final payment, ownership of the good transfers to the purchaser. See also Rent to buy.",
+  "Initial public offering (IPO)":"when a company first offers shares on the stock market to sell them to the general public. Also known as floating on the stock market. Visit ASIC’s MoneySmart website for more information about IPOs- external site.",
+  "Insolvent":"a business or company is insolvent when they cannot pay their debts as and when they are due.",
+  "Intangible assets":"non-physical assets with no fixed value, such as goodwill and intellectual property rights.",
+  "Interest":"the cost of borrowing money on a loan or earned on an interest-bearing account.",
+  "Interest rate":"a percentage used to calculate the cost of borrowing money or the amount you will earn. Rates vary from product to product and generally the higher the risk of the loan, the higher the interest rate. Rates may be fixed or variable.",
+  "Inventory":"a list of goods or materials a business is holding for sale.",
+  "Invoice":"a document to a customer to request payment for a good or service received.",
+  "Invoice finance":"finance based on the strength of a business's accounts receivable. This form of financing is similar to factoring, except that the invoices or accounts receivable remain with the business. See also Factoring.",
+  "Liability":"any financial expense or amount owed.",
+  "Line of credit":"an agreement allowing a borrower to withdraw money from an account up to an approved limit.",
+  "Liquidate":"to quickly sell all the assets of a company and convert them into cash.",
+  "Liquidation":"the process of winding up an insolvent company. An appointed administrator will do this by ceasing business operations, selling assets, and paying creditors and shareholders.",
+  "Liquidity":"how quickly you can convert assets into cash.",
+  "Loan":"a finance agreement where a business borrows money and pays it back in instalments (plus interest) within a specified period of time.",
+  "Margin call":"when the value of a property or asset falls below a certain loan to value ratio (LVR). For higher risk loans such as margin loans, the lender will request further payment to bring the LVR back to the agreed percentage. See also Loan to value ratio (LVR).",
+  "Mark down":"a discount applied to a product during a promotion or sale for the purposes of attracting sales or for shifting surplus or discontinued products. See also Discount.",
+  "Mark up":"the amount added to the cost price of goods, to help determine a selling price. Essentially it is the difference between the cost of the good/service and the selling price. It does not take into account what proportion of the amount is profit.",
+  "Maturity date":"when a loan's term ends and all outstanding principal and interest payments are due.",
+  "Net assets (also known as net worth, owner's equity or shareholder's equity)":"the total assets minus total liabilities.",
+  "Net income":"the total money earned by a business after tax and other deductions.",
+  "Overdraft facility":"a finance arrangement where a lender allows a business to withdraw more than the balance of an account.",
+  "Overdrawn account":"a credit account that has exceeded its credit limit or a bank account that has had more than the remaining balance withdrawn.",
+  "Overheads":"the fixed costs associated with operating a business such as rent, marketing, utilities and administrative costs. See also Fixed costs.",
+  "Personal property":"covers any property someone can own, except for land, buildings and fixtures. Examples include goods, plant and equipment, cars, boats, planes, livestock and more.",
+  "Personal Property Security Register (PPSR)":"the PPSR- external site replaces a number of registers of security interests. It provides a single national noticeboard of security interests in personal property.",
+  "Petty cash":"cash for small miscellaneous purchases such as postage.",
+  "Plant and equipment":"a group of fixed assets used in the operation of a business such as furniture, machinery, fit-out, vehicles, computers and tools.",
+  "Principal":"the original loan amount borrowed or the remainder of the original borrowed amount that is still owing (excluding the interest portion).",
+  "Profit":"the total revenue a business earns minus the total expenses. See also Revenue.",
+  "Profit and loss statement (also known as an income statement)":"a financial statement listing sales and expenses. Use it to work out the gross and net profit of a business.",
+  "Profit margin":"see Margin.",
+  "Projection":"see Forecast.",
+  "R&D":"stands for 'research and development'. Businesses conduct research and development to innovate, create new products and find better ways of doing things.",
+  "Receipts":"a document given to a customer to confirm payment and to confirm the sale of a good or service.",
+  "Record keeping":"the process of keeping or recording information that explains certain business transactions. Record keeping is a requirement under tax law.",
+  "Refinance":"when a new loan helps to pay off an existing one. Reasons to refinance include: extending the original loan over a longer period of time, reduce fees or interest rates, switch banks, or move from a fixed to variable loan.",
+  "Rent to buy":"a finance arrangement where you purchase something through an initial deposit and then 'lease' it while pay it off. After the final payment, the purchaser has the option (but no obligation) to buy the good or continue leasing. See also Hire-purchase.",
+  "Repossess":"the process of a bank or other lender taking ownership of property/assets for the purpose of paying off a loan in default.",
+  "Retention of title":"a clause in contracts where a buyer may receive property, but doesn’t take legal ownership until the full price is paid.",
+  "Return on investment (ROI)":"a calculation that works out how efficient a business is at generating profit from the original equity from the owners/shareholders. It's a way of thinking about the benefit (return) of the money you invest into the business. To calculate ROI, divide the gain (net profit) of the investment by the cost of the investment. The ROI then becomes a percentage or a ratio.",
+  "Revenue (also known as turnover)":"the amount earned before expenses, tax and other deductions.",
+  "Single-entry bookkeeping":"a bookkeeping method within a cash accounting system that records one side of each transaction.",
+  "Scam":"a deliberate and targeted deception to obtain money or information unlawfully.",
+  "Security (also known as collateral)":"property or assets that a lender can take ownership of when repayment of a loan does not occur.",
+  "Shareholder's equity":"see Net assets.",
+  "SMSF":"stands for self-managed superannuation fund- external site. An SMSF is a way of saving for your retirement. Unlike other super funds, an SMSF is self-managed, which means you're responsible for making sure the super fund complies with super and tax laws. ASIC's MoneySmart also has useful information on SMSFs- external site.",
+  "Stock":"the actual goods or materials a business currently has on hand.",
+  "Stocktaking":"a regular process involving a physical count of merchandise and supplies actually held by a business, to verify stock records and accounts.",
+  "Superannuation":"money set aside for retirement that must go into a complying superannuation fund. There is useful information on ASIC's MoneySmart website about businesses paying their employees super- external site.",
+  "Tax invoice":"an invoice required for the supply of goods or services over a certain price. You need a valid tax invoice when claiming GST credits. See also Invoice.",
+  "Turnover":"See Revenue.",
+  "Variable interest rate":"when the interest rate of a loan changes with market conditions for the duration of the loan.",
+  "Variable cost":"a cost that changes depending on the number of goods produced or the demand for the products or service.",
+  "Venture capital":"an investment in a start-up business that has excellent growth prospects. However, it does not have access to capital markets because it is a private company.",
+  "Working capital":"the cash available to a business for day-to-day expenses.",
+  "Alpha":"The amount of return expected from an investment from its inherent value.",
+  "Beta":"A measurement of how volatile subject is, where 1 is neutral; above 1 is more volatile; and less than 1 is less volatile.",
+  "Capital gain":"The difference between a security's purchase price and its selling price, when the difference is positive.",
+  "Volatility":"The amount and frequency with which an investment fluctuates in value.",
+  "YTD":"Year-to-date return on an investment including appreciation and dividends or interest."
 }
-
-// getting textnodes from the body of the document
-var pageText = textNodesUnder(document.body);
-
-// IF one of the nodes matches dictionary key, THEN we change it for the dictionary value
-for (node of pageText) {
-    var origText = node.nodeValue;
-    var text = origText;
-    for (const key of Object.keys(datka)) {
-        var pattern = new RegExp(`\\b${key}\\b`, 'ig');
-        var replacement = `[${datka[key]}]`
-        var newText = text.replace(pattern, replacement);
-        if ((newText !== text) && 
-          (node.parentNode !== null) && 
-          !(origText.includes(`${datka[key]}`))) {
-            text = newText;
-        }
-    }
-    if ((text != origText) && (node.parentNode !== null)) {
-       var element = document.createElement("span");
-       element.innerHTML = text;
-       node.parentNode.replaceChild(element, node);
-    }
-}
-
-
-//////////////////////////////// find n most frequent words (n = num) /////////////////////////////////
-
-/*
-
-// grab all the text content from the html body
-const contentTxt = document.body.textContent
-
-// searching for most frequent words minus stopwords (words that we ignore)
-function findMostFreqWords(contentTxt = '') {
-
-    // stopwords - array of words that we will ignore when searching
-    const stopWords = ['what', 'until', 'a', 'b','c', 'o', 'f',
-        "haven't", 'will', 'wasn', 'hers', 'after','w','k',
-        'myself', 'below', 'mustn', 'she', 'here','g','d',
-        'if', 'these', 'only', 'above', "wouldn't",
-        "mustn't", "it's", "mightn't", 'to', 'was',
-        'in', "won't", 'itself', 'can', 'mightn',
-        'ourselves', 'be', 'which', 'some', 'those',
-        "should've", "you'd", 'again', 've', 'haven',
-        'not', 'hadn', 'shouldn', 'my', 'has', 'are',
-        'further', "she's", 'now', "wasn't", 'themselves',
-        'its', "shan't", 'ain', 'an', "isn't", 'there',
-        'your', 'doing', 'once', 'that', "you've", 'no',
-        'were', 'just', 'them', 'her', 'between', 'been',
-        'into', 'from', 'while', 'on', 'against', 'am',
-        'out', 'should', 'this', 'then', 'as', 'm', 'being',
-        'doesn', "hadn't", 'before', 'who', 'with', 'down',
-        'nor', 'is', 'me', 'or', 'wouldn', 'own', "hasn't",
-        'did', "weren't", 'his', 'hasn', 'isn', "aren't",
-        'for', 'during', 'ours', 're', 'o', "needn't", 'up',
-        'under', 'each', 'have', 'same', 'off', 'where', 'but',
-        'ma', 'most', 'y', 'such', 'by', 'they', "doesn't", 'few',
-        'him', "you're", 's', 'very', 'll', 'don', 'than',
-        'when', 'd', 'through', 'having', 'it', 'weren', 'too',
-        "didn't", 'their', 'you', 'and', 'himself', 'yours',
-        'other', 'so', 'more', 't', 'all', 'herself', 'the',
-        'theirs', 'aren', 'whom', 'about', 'won', 'yourselves',
-        'our', "don't", 'over', 'shan', 'we', 'why', "shouldn't",
-        'because', 'any', 'how', 'had', 'at', 'he', 'of', 'yourself',
-        'does', 'both', 'didn', "couldn't", "that'll", 'couldn',
-        "you'll", 'i', 'needn', 'do', "randomly", "apply", "add", "even",
-        "therefore", "considering", "meaning", "ones", "better", "do",
-        "random", "arent", "subject", "whatever", "say", "youre",
-        "rendering", "opinion", "identified", "meaning", "matters", "want",
-        "sitting", "standing", "walking", "talking", "crying", "begging",
-        "january", "february", "march", "april", "may", "june", "july", "august",
-        "september", "october", "november", "december", "jan", "feb", "mar", "apr",
-        "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", "1st", "2nd", "3rd",
-        "4th", "5th", "6th", "7th", "8th", "9th", "10th", "one", "two", "three", "four",
-        "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen",
-        "twenty", "21st", "20th", "century", "dozen", "hundred", "thousand", "million",
-        "billion", "trillion", "across", "over", "above", "below", "edition", "set", "every",
-        "any", "more", "less", "yet", "wants", "wanted", "many", "much", "little", "small", "help",
-        "thing", "things", "stuff", "owned", "basic", "mutual", "someday", "timid", 
-        ,"explaining","extra","kitchen","bed",'came', 'easier','management','rest',
-        'certain','portion','future','function',"would","should","could","had",
-        "wouldnt","shouldnt","couldnt","wouldn't","shouldn't","couldn't",""];
-
-    var contentTxtArr = contentTxt.toLowerCase().replace(/[^\w\d\s]/gi, "").split(" ");
-    contentTxtArr = contentTxtArr.filter((el) => !stopWords.includes(el));
-    num = 10;
-    const map = {};
-    contentTxtArr.forEach(word => {
-        if (map.hasOwnProperty(word)) {
-            map[word]++;
-        } else {
-            map[word] = 1;
-        }
-    });
-    const freqArr = Object.keys(map).map(key => [key, map[key]]);
-    freqArr.sort((a, b) => b[1] - a[1]);
-    return freqArr.slice(0, num).map(el => el[0]);
-}
-
-console.log(findMostFreqWords(contentTxt));
-
-////////////////////////// Matches keywords to a product variable /////////////////////
-
-// exapmle:
-// const products = ['Tagful Tee', 'Rectangle Logo', 'Crewneck'];
-// const product = products.find(product => matchKeyword(product, '+Tagful, -Tagless'));
-
-// console.log(product); // => 'Tagful Tee'
-
-/*
-const matchKeyword = (productName, keywords) => {
-    const name = productName.toLowerCase().trim();
-    return (keywords.toLowerCase().split(",").map((keyword) => keyword.trim()).filter((word) =>
-            (word.includes("+") && !name.includes(word.substr(1))) ||
-            (word.includes("-") && name.includes(word.substr(1)))).length === 0);
-        };
-
-*/
-
-/// TO DO: compare most frequent words in text with the abbreviations where
-// each topic, such as Finance/Business; Medicine; Etc... has their own
-// list of abbreviations and their full forms,
-// so that comparison would return the topic of the text
-// IMPORTANT: Capture Amount of thematical wods ralative to the overall amount of words (Theme words / All words)
-// Certain persentage of thematical words in the body of text implies that text has particular topic (question iswhat persetnage?)
-
-
-// Finance topics: Economics, Finance and Accounting, Product management
-
-
-
-/*
-
-////////////////////////// get all key-value pairs from text file to dictionary ///////////////////////
-let finTerms = readTextFile("/termlist.txt"); 
-
-function readTextFile(fileName) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', chrome.runtime.getURL(fileName), true);
-  xhr.onreadystatechange = function() {
-    if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
-    {
-      const terms = xhr.responseText;
-      //... The content has been read in xhr.responseText
-      const termLines = terms.split('\n');
-
-      let dictionary = {};
-
-      for(let i = 0; i < termLines.length; ++i) {
-        const line = termLines[i];
-        const termParts = line.split('&$&');
-        dictionary[termParts[0].trim()] = termParts[1].trim();
-      }
-    } return dictionary
-  }
-} xhr.send()
-
-
-//////////////////// add tooltip with dictionary value to word that match dictionary key ///////////////////
 
 // func to get all the text nodes under a particular node
 function textNodesUnder(el) {
@@ -802,30 +766,51 @@ function textNodesUnder(el) {
 }
 
 // getting textnodes from the body of the document
-var pageText = textNodesUnder(document.body);
+const pageText = textNodesUnder(document.body);
 
-// main loop to add tooltip 
-for (node of pageText) {
+// execute main func
+acronymize(pageText)
+
+// walking through each of the node in the page text
+// if word in the node (in the page text) matches dictionary key, 
+// then replace the word for dictionary value
+function acronymize(pageText) {
+  for (node of pageText) {
     var origText = node.nodeValue;
+    var text = origText;
     var term = origText;
     for (const key of Object.keys(finTerms)) {
-        var pattern = new RegExp(`${key}`, 'ig');
-        var tooltip = "Definition: "
-        var chars = Math.max(tooltip.length, key.length + 10);
-        var replacement = '<span class="tooltip">' + key + 
-                              '<span class="tooltiptext" style="width:' + chars + 'ex;">' + 
-                              tooltip + '<br/>"' + finTerms[key] + '"</span></span>';
-        var replacedTerm = term.replace(pattern, replacement);
-  
-        if ((replacedTerm !== term) && (node.parentNode !== null)) {
-          term = replacedTerm;
+      var pattern = new RegExp(`\\b${key}\\b`, 'ig');
+      var replacement = '<span class="tooltip">' + "[" + key + "]" + 
+                            '<span class="tooltiptext" style="height:fit-content">' + 
+                            finTerms[key] + '</span></span>';
+      var newTerm = term.replace(pattern, replacement);
+      if ((newTerm !== term) && 
+        (node.parentNode !== null)) {
+          term = newTerm;
+      }
+    } 
+    for (const key of Object.keys(finAcronyms)) {
+      var pattern = new RegExp(`\\b${key}\\b`, 'ig');
+      var replacement = `[${finAcronyms[key]}]`
+      var newText = text.replace(pattern, replacement);
+      if ((newText !== text) && 
+        (node.parentNode !== null) && 
+        !(origText.includes(`${finAcronyms[key]}`))) {
+          text = newText;
         }
     }
-    if ((term != origText) && (node.parentNode !== null)) {
-       var elementTerm = document.createElement("span");
-       elementTerm.innerHTML = term;
-       node.parentNode.replaceChild(elementTerm, node);
+    if ((term != origText) && (node.parentNode !== null)){
+      var elementTerm = document.createElement("span");
+      elementTerm.innerHTML = term;
+      node.parentNode.replaceChild(elementTerm, node);
     }
+    if ((text != origText) && (node.parentNode !== null)) {
+      var elementText = document.createElement("span");
+      elementText.innerHTML = text;
+      node.parentNode.replaceChild(elementText, node);
+    }
+  }
 }
 
-*/
+/////////////////////////////////////
