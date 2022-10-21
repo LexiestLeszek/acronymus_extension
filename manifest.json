@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Acronymus",
-    "version": "1.41",
+    "version": "1.44",
     "author": "Leszek Mielnikow",
     "description": "When viewing web page, click the Acronymus icon to expanded finance abbreviations and see tooltips for finance terms",
     "icons": {"96": "logo96.png"},
