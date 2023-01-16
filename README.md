@@ -1,4 +1,4 @@
-## Acronymus
+## Acronymus (CWS link: https://chrome.google.com/webstore/detail/acronymus/ilhpofkcdmejkkhghchnookomdefnacg)
 
 Translate financial and business abbreviations into plain English
 
